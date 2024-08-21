@@ -1,13 +1,16 @@
 import { Suspense } from 'react';
-import { ProductCard, ProductCardSkeleton } from '@/components/ProductCard';
 import db from '@/db/db';
+import { cache } from '@/lib/cache';
+import { ProductCard, ProductCardSkeleton } from '@/components/ProductCard';
 
-function getProducts() {
-    return db.product.findMany({
-        where: {isAvailableForPurchase: true},
-        orderBy: {name: 'asc'},
-    });
-}
+const getProducts = cache(() => {
+        return db.product.findMany({
+            where: {isAvailableForPurchase: true},
+            orderBy: {name: 'asc'},
+        });
+    },
+    ['/products', 'getProducts']
+);
 
 export default function ProductsPage() {
     return (
@@ -22,7 +25,7 @@ export default function ProductsPage() {
                     <ProductCardSkeleton/>
                 </>
             }>
-                <ProductsSuspense />
+                <ProductsSuspense/>
             </Suspense>
         </div>
     );
