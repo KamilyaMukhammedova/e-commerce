@@ -34,10 +34,10 @@ export function DeleteDropdownItem({id, disabled}: {
 
     return (
         <DropdownMenuItem
-            onClick={async () => {
+            onClick={() => startTransition(async () => {
                 await deleteProduct(id);
                 router.refresh();
-            }}
+            })}
             disabled={disabled || isPending}
             variant={'destructive'}
         >
