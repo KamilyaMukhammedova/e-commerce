@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { useFormStatus, useFormState } from 'react-dom';
+import Image from 'next/image';
 import { Label } from '@/components/ui/label';
+import { Product } from '@prisma/client';
+import { formatCurrency } from '@/lib/formatters';
+import { addProduct, updateProduct } from '@/app/admin/_actions/products';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { formatCurrency } from '@/lib/formatters';
 import { Button } from '@/components/ui/button';
-import { addProduct, updateProduct } from '@/app/admin/_actions/products';
-import { Product } from '@prisma/client';
-import Image from 'next/image';
 
 export function ProductForm({product} : {product? : Product | null}) {
     const [error, action] =
